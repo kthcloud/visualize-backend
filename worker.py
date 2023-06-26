@@ -15,7 +15,7 @@ def get_db_latest():
 
 def get_status():
     response = requests.get(
-        f'{env.read_env("API_URL")}/landing/v2/status?n=1')
+        f'{env.read_env("API_URL")}/landing/v2/status?n=100')
     return response.json()
 
 
