@@ -6,8 +6,7 @@ from bson import json_util
 import datetime
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 
 class state:
@@ -29,7 +28,6 @@ def background_worker():
 
 
 @app.route('/')
-@cross_origin()
 def index():
     body = {}
     body["date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
