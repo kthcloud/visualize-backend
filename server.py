@@ -1,25 +1,41 @@
 from flask import Flask
 import threading
 import worker
-from dotenv import load_dotenv
-
-load_dotenv()
+import json
+from bson import json_util
+import datetime
 
 app = Flask(__name__)
 
-status = []
 
-def update_state(new_status):
-    status = new_status
-    print(status)
-    print("UPDATED!")
+class state:
+    status = []
+    db_latest = []
+    capacities = []
+    stats = []
+
+
+def update_state(new_status, new_db_latest, new_capacities, new_stats):
+    state.status = json.dumps(new_status)
+    state.db_latest = json_util.dumps(new_db_latest)
+    state.capacities = json.dumps(new_capacities)
+    state.stats = json.dumps(new_stats)
+
 
 def background_worker():
     worker.start(update_state)
 
+
 @app.route('/')
 def index():
-    return 'Hello World!'
+    body = {}
+    body["date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    body["status"] = json.loads(state.status)
+    body["jobs"] = json.loads(state.db_latest)
+    body["capacities"] = json.loads(state.capacities)
+    body["stats"] = json.loads(state.stats)
+    return json.dumps(body)
+
 
 if __name__ == '__main__':
     thread = threading.Thread(target=background_worker)
