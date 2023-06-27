@@ -36,4 +36,5 @@ def start(update_state):
     while True:
         update_state(get_status(), get_db_latest(),
                      get_capacities(), get_stats())
+        print("Fetched at " + time.strftime("%Y-%m-%d %H:%M:%S"))
         time.sleep(1)
