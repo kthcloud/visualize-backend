@@ -9,7 +9,8 @@ def get_db_latest():
     client = pymongo.MongoClient(env.read_env("MONGO_URL"))
     db = client["deploy"]
     collection = db["jobs"]
-    jobs = collection.find().sort("createdAt", -1).limit(10)
+    jobs = collection.find({"type": {"$not": {"$regex": "repairVm"}}}).sort(
+        "createdAt", -1).limit(10)
     return list(jobs)
 
 
