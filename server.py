@@ -4,6 +4,7 @@ import worker
 import json
 from bson import json_util
 import datetime
+import logger
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
@@ -31,7 +32,7 @@ def background_worker():
 def index():
     body = {}
     body["date"] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    print(body["date"])
+    logger.log(body["date"])
     body["status"] = json.loads(state.status)
     body["jobs"] = json.loads(state.db_latest)
     body["capacities"] = json.loads(state.capacities)
