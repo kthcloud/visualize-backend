@@ -10,10 +10,10 @@ CORS(app)
 
 
 class state:
-    status = []
-    db_latest = []
-    capacities = []
-    stats = []
+    status = ""
+    db_latest = ""
+    capacities = ""
+    stats = ""
 
 
 def update_state(new_status, new_db_latest, new_capacities, new_stats):
