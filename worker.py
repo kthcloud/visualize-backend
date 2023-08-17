@@ -10,7 +10,8 @@ def get_db_latest():
     client = pymongo.MongoClient(env.read_env("MONGO_URL"))
     db = client["deploy"]
     collection = db["jobs"]
-    jobs = collection.find({"$nor": [{"type": {"$regex": "repair"}}, {"status": {"$regex": "failed"}}]}).sort(
+    # all the jobs that are not repair or failed or pending, sorted by createdAt, descending, limit 10
+    jobs = collection.find({"$nor": [{"type": {"$regex": "repair"}}, {"status": {"$regex": "failed"}}, {"status": {"$regex": "terminated"}}, {"status": {"$regex": "pending"}}]}).sort(
         "createdAt", -1).limit(10)
     logger.log("Time to fetch db: " + str(time.time() - timer))
     return list(jobs)
