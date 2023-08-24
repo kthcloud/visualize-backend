@@ -37,7 +37,6 @@ def get_stats():
 
 def start(update_state):
     while True:
-        logger.log("Fetching new values " + time.strftime("%Y-%m-%d %H:%M:%S"))
         update_state(get_status(), get_db_latest(),
                      get_capacities(), get_stats())
         logger.log("Fetched at " + time.strftime("%Y-%m-%d %H:%M:%S"))
