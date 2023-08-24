@@ -14,8 +14,9 @@ def get_db_latest():
     jobs = collection.find({"$nor": [{"type": {"$regex": "repair"}}, {"status": {"$regex": "failed"}}, {"status": {"$regex": "terminated"}}, {"status": {"$regex": "pending"}}]}).sort(
         "createdAt", -1).limit(10)
     logger.log("Time to fetch db: " + str(time.time() - timer))
+    jobsList = list(jobs)
     client.close()
-    return list(jobs)
+    return list(jobsList)
 
 
 def get_status():
