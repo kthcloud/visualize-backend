@@ -32,7 +32,6 @@ def background_worker():
 def index():
     body = {}
     body["date"] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    logger.log(body["date"])
     body["status"] = json.loads(state.status)
     body["jobs"] = json.loads(state.db_latest)
     body["capacities"] = json.loads(state.capacities)
