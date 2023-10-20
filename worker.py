@@ -40,4 +40,4 @@ def start(update_state):
         update_state(get_status(), get_db_latest(),
                      get_capacities(), get_stats())
         logger.log("Fetched at " + time.strftime("%Y-%m-%d %H:%M:%S"))
-        time.sleep(0.1)
+        time.sleep(5)
