@@ -1,5 +1,7 @@
 FROM python
 
+ENV PYTHONUNBUFFERED=1
+
 RUN pip install --upgrade pip
 
 COPY . /app
